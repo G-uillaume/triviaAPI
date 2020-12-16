@@ -29,8 +29,6 @@ for (let i = 1; i < 5; i++) {
     radio.name = 'answers'
     radio.className = 'input'
     radio.id = 'answer' + i
-    // p.appendChild(radio)
-    // p.appendChild(label)
     propositions.appendChild(radio)
     propositions.appendChild(label)
 }
@@ -45,41 +43,22 @@ let url
 
 categorySend.addEventListener('click', () => {
     category = categoryChoice.value
-    console.log(category)
     cat.style.zIndex = '0'
 })
 difficultySend.addEventListener('click', () => {
     difficulty = difficultyChoice.value
-    console.log(difficulty)
     dif.style.zIndex = '0'
 })
 numberSend.addEventListener('click', () => {
     number = numberChoice.value
-    console.log(number)
     num.style.zIndex = '0'
 
     fetch('https://opentdb.com/api.php?amount=' + number + '&category=' + category + '&difficulty=' + difficulty + '&type=multiple&encode=base64')
         .then(response => response.json())
         .then(response => {
-            console.log(response)
-            // for (let i = 1; i < 5; i++) {
-            //     const p = document.createElement('p')
-            //     const label = document.createElement('label')
-            //     label.setAttribute('for', 'answer' + i)
-            //     label.id = 'label' + i
-            //     const radio = document.createElement('input')
-            //     radio.type = 'radio'
-            //     radio.name = 'answers'
-            //     radio.className = 'input'
-            //     radio.id = 'answer' + i
-            //     p.appendChild(radio)
-            //     p.appendChild(label)
-            //     quizz.insertBefore(p, btnValid)
-            // }
             btnNext.disabled = true
             let choices = []
             choices.push(b64DecodeUnicode(response.results[0].correct_answer))
-            console.log(b64DecodeUnicode(response.results[0].correct_answer))
             for (let elem of response.results[0].incorrect_answers) {
                 choices.push(b64DecodeUnicode(elem))
             }
@@ -98,7 +77,6 @@ numberSend.addEventListener('click', () => {
 
             let i = 0
             let score = 0
-            console.log('dans play (), i = ' + i)
             btnNext.addEventListener('click', () => {
                 i++
                 btnValid.disabled = false
@@ -107,7 +85,6 @@ numberSend.addEventListener('click', () => {
                 }
                 choices = []
                 choices.push(b64DecodeUnicode(response.results[i].correct_answer))
-                console.log(b64DecodeUnicode(response.results[i].correct_answer))
                 for (let elem of response.results[i].incorrect_answers) {
                     choices.push(b64DecodeUnicode(elem))
                 }
@@ -130,10 +107,8 @@ numberSend.addEventListener('click', () => {
                 for (let elem of inputs) {
                     if (elem.checked) {
                         if (elem.value == b64DecodeUnicode(response.results[i].correct_answer)) {
-                            // console.log('gagné')
                             score++
                         } else {
-                            // console.log('perdu')
                         }
                     }
                     elem.disabled = true
@@ -147,16 +122,6 @@ numberSend.addEventListener('click', () => {
                 }
             })
             replay.addEventListener('click', () => {
-                // cat.style.zIndex = '5'
-                // dif.style.zIndex = '4'
-                // num.style.zIndex = '3'
-                // quizz.style.zIndex = '2'
-                // for (let input of inputs) {
-                //     input.disabled = false
-                // }
-                // btnValid.disabled = false
-                // console.log('Dans replay, i = ' + i)
-                // play()
                 document.location.reload()
             })
         })

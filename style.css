@@ -16,7 +16,6 @@
     align-items: center;
     font-family: 'Bangers', cursive;
     letter-spacing: 0.1em;
-    /* animation: bgClignot 10s infinite; */
 }
 
 #welcome {
@@ -47,8 +46,6 @@
 }
 
 #welcome h1 {
-    /* font-family: 'Bangers', cursive;
-    letter-spacing: 0.1em; */
     font-size: 100px;
     text-decoration: blink;
     animation: textClignot 1s infinite;
@@ -73,10 +70,6 @@
 #number {
     flex-direction: column;
     justify-content: space-around;
-    /* color: lightgoldenrodyellow; */
-    /* animation: textClignot 1s infinite; */
-    /* font-family: 'Bangers', cursive;
-    letter-spacing: 0.1em; */
     font-size: 54px;
 }
 
@@ -86,7 +79,6 @@
     padding: 10px;
     font-family: 'Bangers', cursive;
     font-size: 32px;
-    /* animation: textClignot 1s infinite; */
     letter-spacing: 0.1em;
     outline: none;
     background: linear-gradient(to left, black, darkblue);
@@ -96,10 +88,15 @@
 #category button,
 #difficulty button,
 #number button {
-    padding: 20px 40px;
-    font-size: 32px;
+    cursor: pointer;
+    outline: none;
+    padding: 20px;
     font-family: 'Bangers', cursive;
     letter-spacing: 0.1em;
+    font-size: 24px;
+    background: linear-gradient(to top, darkblue, grey);
+    color: #eee;
+    border: none;
 }
 
 #category {
@@ -121,7 +118,7 @@
 }
 
 #quizz h2 {
-    font-size: 54px;
+    font-size: 40px;
     text-align: center;
 }
 
@@ -132,7 +129,6 @@
 }
 
 #propositions {
-    /* padding: 0; */
     width: 50%;
     height: 40%;
     display: grid;
@@ -147,29 +143,84 @@ input[type="radio"] {
 }
 
 input[type="radio"]+label {
+    cursor: pointer;
     min-width: 100px;
     max-width: 300px;
-    /* padding: 0.5rem 1rem; */
     padding: 2em;
     font-size: 1.25rem;
     line-height: 1.5;
     border-radius: 0.3rem;
     color: #fff;
-    background-color: #6c757d;
-    border: 1px solid transparent;
+    background: linear-gradient(to left, rgb(138, 41, 3), blue);
+    border: 3px solid transparent;
     transition: all 0.15s ease-in-out;
+    box-sizing: content-box;
 }
 
 input[type="radio"]:hover+label {
     background-color: #218838;
-    border-color: #1e7e34;
+    border-width: 3px;
+    border-color: rgb(138, 41, 3);
 }
 
 input[type="radio"]:checked+label {
     background-color: #28a745;
-    border-color: #28a745;
+    border-width: 3px;
+    border-color: rgb(9, 105, 38);
+}
+
+input[type="radio"]:disabled {
+    opacity: 50%;
+}
+
+#buttons {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#buttons button {
+    cursor: pointer;
+    outline: none;
+    padding: 20px;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 0.1em;
+    font-size: 24px;
+    background: linear-gradient(to top, darkblue, grey);
+    color: #eee;
+    border: none;
+}
+
+#buttons button:link {
+    border: none;
+}
+
+#buttons button:disabled {
+    opacity: 50%;
 }
 
 #result {
     z-index: 1;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#result h1 {
+    font-size: 60px;
+}
+
+#result button {
+    cursor: pointer;
+    outline: none;
+    padding: 20px;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 0.1em;
+    font-size: 24px;
+    background: linear-gradient(to top, darkblue, grey);
+    color: #eee;
+    border: none;
+}
+
+#result button:link {
+    border: none;
 }
