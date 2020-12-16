@@ -35,7 +35,7 @@ numberSend.addEventListener('click', () => {
     console.log(number)
     num.style.display = 'none' 
 
-fetch('https:opentdb.com/api.php?amount='+number+'&category='+category+'&difficulty='+difficulty+'&type=multiple&encode=base64')
+fetch('https://opentdb.com/api.php?amount='+number+'&category='+category+'&difficulty='+difficulty+'&type=multiple&encode=base64')
     .then(response => response.json())
     .then(response => {
         for (let i = 1; i < 5; i++) {
