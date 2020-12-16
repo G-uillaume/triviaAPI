@@ -1,77 +1,175 @@
-#welcome {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: yellow;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 6;
-}
-
-#category {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: yellow;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 5;
-}
-
-#difficulty {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: yellow;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 4;
-}
-
-#number {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: yellow;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 3;
-}
-#quizz {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: yellow;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-}
-
+#welcome,
+#category,
+#difficulty,
+#number,
+#quizz,
 #result {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: yellow;
+    background: linear-gradient(to bottom, black, darkblue);
+    color: #eee;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 0.1em;
+    /* animation: bgClignot 10s infinite; */
+}
+
+#welcome {
+    z-index: 6;
+    animation: bgClignot 2s infinite;
+}
+
+@keyframes bgClignot {
+    0% {
+        background-color: darkblue;
+    }
+
+    25% {
+        background-color: darkorchid;
+    }
+
+    50% {
+        background-color: darkred;
+    }
+
+    75% {
+        background-color: darkturquoise;
+    }
+
+    100% {
+        background-color: darkblue;
+    }
+}
+
+#welcome h1 {
+    /* font-family: 'Bangers', cursive;
+    letter-spacing: 0.1em; */
+    font-size: 100px;
+    text-decoration: blink;
+    animation: textClignot 1s infinite;
+}
+
+@keyframes textClignot {
+    0% {
+        opacity: 100%;
+    }
+
+    50% {
+        opacity: 20%;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
+
+#category,
+#difficulty,
+#number {
+    flex-direction: column;
+    justify-content: space-around;
+    /* color: lightgoldenrodyellow; */
+    /* animation: textClignot 1s infinite; */
+    /* font-family: 'Bangers', cursive;
+    letter-spacing: 0.1em; */
+    font-size: 54px;
+}
+
+#category select,
+#difficulty select,
+#number select {
+    padding: 10px;
+    font-family: 'Bangers', cursive;
+    font-size: 32px;
+    /* animation: textClignot 1s infinite; */
+    letter-spacing: 0.1em;
+    outline: none;
+    background: linear-gradient(to left, black, darkblue);
+    color: #eee
+}
+
+#category button,
+#difficulty button,
+#number button {
+    padding: 20px 40px;
+    font-size: 32px;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 0.1em;
+}
+
+#category {
+    z-index: 5;
+}
+
+#difficulty {
+    z-index: 4;
+}
+
+#number {
+    z-index: 3;
+}
+
+#quizz {
+    flex-direction: column;
+    justify-content: space-around;
+    z-index: 2;
+}
+
+#quizz h2 {
+    font-size: 54px;
+    text-align: center;
+}
+
+#quizz label {
+    font-size: 24px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+#propositions {
+    /* padding: 0; */
+    width: 50%;
+    height: 40%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "a b"
+    "c d"
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]+label {
+    min-width: 100px;
+    max-width: 300px;
+    /* padding: 0.5rem 1rem; */
+    padding: 2em;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+    color: #fff;
+    background-color: #6c757d;
+    border: 1px solid transparent;
+    transition: all 0.15s ease-in-out;
+}
+
+input[type="radio"]:hover+label {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+input[type="radio"]:checked+label {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+#result {
     z-index: 1;
 }

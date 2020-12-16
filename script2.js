@@ -1,0 +1,1 @@
+setTimeout(() => window.location = 'game.html', 4000)

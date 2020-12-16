@@ -10,10 +10,10 @@
 </head>
 <body>
     <main>
-        <div id="welcome">
+        <!-- <div id="welcome">
             <h1>Welcome to the trivia game !</h1>
-        </div>
-        <!-- <div id="category">
+        </div> -->
+        <div id="category">
             <label for="categoryChoice">Choose a category : </label>
             <select id="categoryChoice">
                 <option value="9">General Knowledge</option>
@@ -44,6 +44,7 @@
             <button id="categorySend">Enter</button>
         </div>
         <div id="difficulty">
+            <label for="difficultyChoice">Choose a difficulty : </label>
             <select id="difficultyChoice">
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
@@ -66,15 +67,19 @@
             <button id="go">GO</button>
         </div>
         <div id="quizz">
-            <p id="question">QUESTION</p>
+            <h2 id="question">QUESTION</h2>
+            <div id="propositions">
+            </div>
+            <div>
             <button id="valid">Valid your answer !</button>
             <button id="next">Next question</button>
+            </div>
         </div>
         <div id="result">
             <h1 id="resultTitle"></h1>
             <button id="replay">Want to play again ?</button>
-        </div> -->
+        </div>
     </main>
-    <script src="script2.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -9,94 +9,86 @@ const categorySend = document.querySelector('#categorySend')
 const difficultySend = document.querySelector('#difficultySend')
 const numberSend = document.querySelector('#numberSend')
 const go = document.querySelector('#go')
-const result = document.querySelector('#result')
 const welcome = document.querySelector("#welcome")
 const cat = document.querySelector("#category")
 const dif = document.querySelector("#difficulty")
 const num = document.querySelector("#number")
+const result = document.querySelector('#result')
+const resultTitle = document.querySelector('#resultTitle')
+const replay = document.querySelector('#replay')
+const propositions = document.querySelector('#propositions')
+let grid = ['a', 'b', 'c', 'd']
+for (let i = 1; i < 5; i++) {
+    const p = document.createElement('p')
+    const label = document.createElement('label')
+    label.setAttribute('for', 'answer' + i)
+    label.id = 'label' + i
+    label.setAttribute("grid-area", grid[i])
+    const radio = document.createElement('input')
+    radio.type = 'radio'
+    radio.name = 'answers'
+    radio.className = 'input'
+    radio.id = 'answer' + i
+    // p.appendChild(radio)
+    // p.appendChild(label)
+    propositions.appendChild(radio)
+    propositions.appendChild(label)
+}
+const inputs = document.querySelectorAll('.input')
 
 let category
 let difficulty
 let number
 let url
-setTimeout(() => welcome.style.display = 'none', 2000)
+
+
+
 categorySend.addEventListener('click', () => {
     category = categoryChoice.value
     console.log(category)
-    cat.style.display = 'none'
+    cat.style.zIndex = '0'
 })
 difficultySend.addEventListener('click', () => {
     difficulty = difficultyChoice.value
     console.log(difficulty)
-    dif.style.display = 'none'
+    dif.style.zIndex = '0'
 })
 numberSend.addEventListener('click', () => {
     number = numberChoice.value
     console.log(number)
-    num.style.display = 'none' 
+    num.style.zIndex = '0'
 
-fetch('https://opentdb.com/api.php?amount='+number+'&category='+category+'&difficulty='+difficulty+'&type=multiple&encode=base64')
-    .then(response => response.json())
-    .then(response => {
-        for (let i = 1; i < 5; i++) {
-            const p = document.createElement('p')
-            const label = document.createElement('label')
-            label.setAttribute('for', 'answer' + i)
-            label.id = 'label' + i
-            const radio = document.createElement('input')
-            radio.type = 'radio'
-            radio.name = 'answers'
-            radio.className = 'input'
-            radio.id = 'answer' + i
-            p.appendChild(radio)
-            p.appendChild(label)
-            quizz.insertBefore(p, btnValid)
-        }
-        btnNext.disabled = true
-        let choices = []
-        choices.push(b64DecodeUnicode(response.results[0].correct_answer))
-        console.log(b64DecodeUnicode(response.results[0].correct_answer))
-        for (let elem of response.results[0].incorrect_answers) {
-            choices.push(b64DecodeUnicode(elem))
-        }
-        choices = shuffleArray(choices)
-        // const label1 = document.querySelector('#label1')
-        // const label2 = document.querySelector('#label2')
-        // const label3 = document.querySelector('#label3')
-        // const label4 = document.querySelector('#label4')
-        const inputs = document.querySelectorAll('.input')
-
-        question.textContent = b64DecodeUnicode(response.results[0].question)
-        label1.textContent = choices[0]
-        answer1.value = choices[0]
-        answer1.checked = true
-        label2.textContent = choices[1]
-        answer2.value = choices[1]
-        label3.textContent = choices[2]
-        answer3.value = choices[2]
-        label4.textContent = choices[3]
-        answer4.value = choices[3]
-
-        let i = 0
-        let score = 0
-        btnNext.addEventListener('click', () => {
-            i++
-            btnValid.disabled = false
-            for (let input of inputs) {
-                input.disabled = false
-            }
-            choices = []
-            choices.push(b64DecodeUnicode(response.results[i].correct_answer))
-            console.log(b64DecodeUnicode(response.results[i].correct_answer))
-            for (let elem of response.results[i].incorrect_answers) {
+    fetch('https://opentdb.com/api.php?amount=' + number + '&category=' + category + '&difficulty=' + difficulty + '&type=multiple&encode=base64')
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            // for (let i = 1; i < 5; i++) {
+            //     const p = document.createElement('p')
+            //     const label = document.createElement('label')
+            //     label.setAttribute('for', 'answer' + i)
+            //     label.id = 'label' + i
+            //     const radio = document.createElement('input')
+            //     radio.type = 'radio'
+            //     radio.name = 'answers'
+            //     radio.className = 'input'
+            //     radio.id = 'answer' + i
+            //     p.appendChild(radio)
+            //     p.appendChild(label)
+            //     quizz.insertBefore(p, btnValid)
+            // }
+            btnNext.disabled = true
+            let choices = []
+            choices.push(b64DecodeUnicode(response.results[0].correct_answer))
+            console.log(b64DecodeUnicode(response.results[0].correct_answer))
+            for (let elem of response.results[0].incorrect_answers) {
                 choices.push(b64DecodeUnicode(elem))
             }
             choices = shuffleArray(choices)
 
-            btnNext.textContent = 'Next question'
-            question.textContent = b64DecodeUnicode(response.results[i].question)
+            question.textContent = b64DecodeUnicode(response.results[0].question)
             label1.textContent = choices[0]
             answer1.value = choices[0]
+            answer1.checked = true
             label2.textContent = choices[1]
             answer2.value = choices[1]
             label3.textContent = choices[2]
@@ -104,33 +96,72 @@ fetch('https://opentdb.com/api.php?amount='+number+'&category='+category+'&diffi
             label4.textContent = choices[3]
             answer4.value = choices[3]
 
-            btnNext.disabled = true
-        })
-        btnValid.addEventListener('click', () => {
-            for (let elem of inputs) {
-                if (elem.checked) {
-                    console.log(b64DecodeUnicode(response.results[i].correct_answer))
-                    if (elem.value == b64DecodeUnicode(response.results[i].correct_answer)) {
-                        console.log('gagné')
-                        score++
-                    } else {
-                        console.log('perdu')
-                    }
+            let i = 0
+            let score = 0
+            console.log('dans play (), i = ' + i)
+            btnNext.addEventListener('click', () => {
+                i++
+                btnValid.disabled = false
+                for (let input of inputs) {
+                    input.disabled = false
                 }
-                elem.disabled = true
-            }
-            btnNext.disabled = false
-            btnValid.disabled = true
-            if (i >= response.results.length - 1) {
-                btnNext.disabled = true
-                quizz.style.display = 'none'
-                result.textContent = 'Congratulations ! You\'ve got ' + score + ' points !'
-            }
-        })
-    })
-    .catch(error => alert(error))  
-})
+                choices = []
+                choices.push(b64DecodeUnicode(response.results[i].correct_answer))
+                console.log(b64DecodeUnicode(response.results[i].correct_answer))
+                for (let elem of response.results[i].incorrect_answers) {
+                    choices.push(b64DecodeUnicode(elem))
+                }
+                choices = shuffleArray(choices)
 
+                btnNext.textContent = 'Next question'
+                question.textContent = b64DecodeUnicode(response.results[i].question)
+                label1.textContent = choices[0]
+                answer1.value = choices[0]
+                label2.textContent = choices[1]
+                answer2.value = choices[1]
+                label3.textContent = choices[2]
+                answer3.value = choices[2]
+                label4.textContent = choices[3]
+                answer4.value = choices[3]
+
+                btnNext.disabled = true
+            })
+            btnValid.addEventListener('click', () => {
+                for (let elem of inputs) {
+                    if (elem.checked) {
+                        if (elem.value == b64DecodeUnicode(response.results[i].correct_answer)) {
+                            // console.log('gagné')
+                            score++
+                        } else {
+                            // console.log('perdu')
+                        }
+                    }
+                    elem.disabled = true
+                }
+                btnNext.disabled = false
+                btnValid.disabled = true
+                if (i >= response.results.length - 1) {
+                    btnNext.disabled = true
+                    quizz.style.zIndex = '0'
+                    resultTitle.textContent = 'Congratulations ! You\'ve got ' + score + ' points !'
+                }
+            })
+            replay.addEventListener('click', () => {
+                // cat.style.zIndex = '5'
+                // dif.style.zIndex = '4'
+                // num.style.zIndex = '3'
+                // quizz.style.zIndex = '2'
+                // for (let input of inputs) {
+                //     input.disabled = false
+                // }
+                // btnValid.disabled = false
+                // console.log('Dans replay, i = ' + i)
+                // play()
+                document.location.reload()
+            })
+        })
+        .catch(error => alert(error))
+})
 
 /**
  * @param {*} str Decodes a string from base64 to unicode.
