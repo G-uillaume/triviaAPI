@@ -1,7 +1,13 @@
-body {
-    margin: 0;
+html {
     min-height: 100vh;
     min-width: 100vw;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    min-width: 100vw;
+    background: linear-gradient(to bottom, black, darkblue);
 }
 
 #welcome,
@@ -15,7 +21,6 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, black, darkblue);
     color: #eee;
     display: flex;
     justify-content: center;
@@ -24,9 +29,9 @@ body {
     letter-spacing: 0.1em;
 }
 
-#welcome {
+/* #welcome {
     animation: bgClignot 2s infinite;
-}
+} */
 
 @keyframes bgClignot {
     0% {
@@ -51,8 +56,8 @@ body {
 }
 
 #welcome h1 {
+    text-align: center;
     font-size: 100px;
-    text-decoration: blink;
     animation: textClignot 1s infinite;
 }
 
@@ -74,7 +79,12 @@ body {
 {
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
     font-size: 54px;
+}
+
+#category label {
+    text-align: center;
 }
 
 #category select {
@@ -127,10 +137,20 @@ body {
     width: 50%;
     height: 40%;
     display: grid;
+    justify-content: center;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
     "a b"
     "c d"
+}
+#boolean {
+    width: 50%;
+    height: 40%;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "a b"
 }
 
 input[type="radio"] {
@@ -138,10 +158,14 @@ input[type="radio"] {
 }
 
 input[type="radio"]+label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     min-width: 100px;
     max-width: 300px;
-    padding: 2em;
+    padding: 0 0.5em;
     font-size: 1.25rem;
     line-height: 1.5;
     border-radius: 0.3rem;
@@ -221,6 +245,7 @@ input[type="radio"]:disabled {
 }
 
 #result h1 {
+    text-align: center;
     font-size: 60px;
 }
 
@@ -238,4 +263,76 @@ input[type="radio"]:disabled {
 
 #result button:link {
     border: none;
+}
+
+@media screen and (max-width:  768px) {
+    body {
+        height: 105vh;
+    }
+
+    #welcome h1 {
+        font-size: 50px;
+        line-height: 3em;
+    }
+
+    #category label {
+        font-size: 42px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #category select {
+        width: 80%;
+        padding: 10px;
+        font-family: 'Bangers', cursive;
+        font-size: 22px;
+        letter-spacing: 0.1em;
+        outline: none;
+        background: linear-gradient(to left, black, darkblue);
+        color: #eee
+    }
+
+    #quizz h2 {
+        font-size: 28px;
+        margin: 0 10px;
+    }
+
+    #propositions label {
+        padding: 0 1em;
+        font-size: 18px;
+    }
+
+    #boolean {
+        grid-template-areas: 
+        "a"
+        "b";
+    }
+    
+    #boolean label {
+        height: 6em;
+        width: 6em;
+    }
+
+    #wrong, #right {
+        margin: 12% 12%;
+        justify-content: space-around;
+    }
+
+    #wrong h3, #right h3 {
+        font-size: 54px;
+    }
+
+    #wrong p, #right p {
+        margin: 30px 5px;
+        line-height: 1.5em;
+    }
+
+    #result h1 {
+        margin: 0 40px;
+        font-size: 46px;
+    }
+
+    #result h1 span {
+        display: block;
+    }
 }

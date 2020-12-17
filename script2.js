@@ -39,7 +39,8 @@ const generateLabel = (parentNode, arr, type) => {
             const label = document.createElement('label')
             label.setAttribute('for', 'answer' + i)
             label.id = 'label' + i
-            label.setAttribute("grid-area", grid[i])
+            // label.setAttribute("grid-area", grid[i])
+            label.style.gridArea = grid[i-1]
             const radio = document.createElement('input')
             radio.type = 'radio'
             radio.name = 'answers'
@@ -58,10 +59,11 @@ const generateLabel = (parentNode, arr, type) => {
             const label = document.createElement('label')
             label.setAttribute('for', 'answer' + i)
             label.id = 'label' + i
-            label.setAttribute("grid-area", grid[i])
-            label.style.fontSize = '4rem'
-            label.style.padding = '1em'
-            label.style.textAlign = 'center'
+            // label.setAttribute("grid-area", grid[i])
+            // label.style.fontSize = '4rem'
+            // label.style.padding = '1em'
+            // label.style.textAlign = 'center'
+            label.style.gridArea = grid[i-1]
             const radio = document.createElement('input')
             radio.type = 'radio'
             radio.name = 'answers'
@@ -102,6 +104,7 @@ setTimeout(() => {
 
 /* ---- Page choix options --- */
 function play() {
+    main.innerHTML = ''
     const categoryList = ['General Knowledge', 'Entertainment: Books', 'Entertainment: Film', 'Entertainment: Music', 'Entertainment: Musicals & Theatres', 'Entertainment: Television', 'Entertainment: Video Games', 'Entertainment: Board Games', 'Science & Nature', 'Science: Computers', 'Science: Mathematics', 'Mythology', 'Sports', 'Geography', 'History', 'Politics', 'Art', 'Celebrities', 'Animals', 'Vehicles', 'Entertainment: Comics', 'Science: Gadgets', 'Entertainment: Japanese Anime & Manga', 'Entertainment: Cartoon & Animations']
     const difficultyList = ['easy', 'medium', 'hard']
     const numList = [5, 10, 15, 20]
@@ -153,7 +156,11 @@ function play() {
             choice.id = 'quizz'
             const quizzH2 = document.createElement('h2')
             const divPropositions = document.createElement('div')
-            divPropositions.id = 'propositions'
+            if (type === 'multiple') {
+                divPropositions.id = 'propositions'
+            } else if (type === 'boolean') {
+                divPropositions.id = 'boolean'
+            }
             const valid = document.createElement('button')
             valid.id = 'valid'
             valid.textContent = 'Validate your answer'
@@ -208,9 +215,9 @@ function play() {
                                         choice.appendChild(btnPlayAgain)
                                         btnPlayAgain.addEventListener('click', play)
                                     } else {
-                                        for (let elem of inputs) {
-                                            elem.disabled = false
-                                        }
+                                        // for (let elem of inputs) {
+                                        //     elem.disabled = false
+                                        // }
                                         choices = []
                                         choices.push(b64DecodeUnicode(response.results[i].correct_answer))
                                         for (let elem of response.results[i].incorrect_answers) {
@@ -242,16 +249,16 @@ function play() {
                                         choice.innerHTML = ''
                                         choice.id = 'result'
                                         const h1 = document.createElement('h1')
-                                        h1.textContent = 'The game is over! You have ' + score + ' out of ' + number + ' points!'
+                                        h1.innerHTML = 'The game is over!<span>You have ' + score + ' out of ' + number + ' points!</span>'
                                         const btnPlayAgain = document.createElement('button')
                                         btnPlayAgain.textContent = 'Want to play again ?'
                                         choice.appendChild(h1)
                                         choice.appendChild(btnPlayAgain)
                                         btnPlayAgain.addEventListener('click', play)
                                     } else {
-                                        for (let elem of inputs) {
-                                            elem.disabled = false
-                                        }
+                                        // for (let elem of inputs) {
+                                        //     elem.disabled = false
+                                        // }
                                         choices = []
                                         choices.push(b64DecodeUnicode(response.results[i].correct_answer))
                                         for (let elem of response.results[i].incorrect_answers) {
@@ -264,7 +271,7 @@ function play() {
                                 })
                             }
                         }
-                        elem.disabled = true
+                        // elem.disabled = true
                     }
                     if (i >= number - 1) {
                         const next = document.querySelector('#next')
