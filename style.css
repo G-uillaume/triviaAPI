@@ -3,6 +3,8 @@
 #difficulty,
 #number,
 #quizz,
+#wrong,
+#right,
 #result {
     position: absolute;
     top: 0;
@@ -19,7 +21,6 @@
 }
 
 #welcome {
-    z-index: 6;
     animation: bgClignot 2s infinite;
 }
 
@@ -99,22 +100,11 @@
     border: none;
 }
 
-#category {
-    z-index: 5;
-}
 
-#difficulty {
-    z-index: 4;
-}
-
-#number {
-    z-index: 3;
-}
 
 #quizz {
     flex-direction: column;
     justify-content: space-around;
-    z-index: 2;
 }
 
 #quizz h2 {
@@ -199,8 +189,49 @@ input[type="radio"]:disabled {
     opacity: 50%;
 }
 
+#wrong, #right {
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    margin: 200px 320px;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    /* background: linear-gradient(to bottom, darkblue, rgb(209, 63, 5)); */
+    box-shadow: 10px 10px 10px darkblue;
+}
+
+#wrong {
+    background: linear-gradient(to bottom, darkblue, rgb(209, 63, 5));
+}
+
+#right {
+    background: linear-gradient(to bottom, darkblue, rgb(51, 3, 105));
+}
+
+#wrong h3, #right h3 {
+    letter-spacing: 0.1em;
+    font-size: 62px;
+    animation: textClignot .5s infinite;
+}
+
+#wrong h3 {
+    color: red;
+}
+
+#right h3 {
+    color: green;
+}
+
+#wrong p, #right p {
+    font-size: 36px;
+}
+
 #result {
-    z-index: 1;
     flex-direction: column;
     justify-content: space-around;
 }
