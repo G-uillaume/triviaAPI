@@ -193,9 +193,14 @@ input[type="radio"]:disabled {
 }
 
 #wrong h3, #right h3 {
+    text-align: center;
     letter-spacing: 0.1em;
     font-size: 62px;
     animation: textClignot .5s infinite;
+}
+
+#wrong p, #right p {
+    text-align: center;
 }
 
 #wrong h3 {

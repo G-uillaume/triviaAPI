@@ -186,7 +186,7 @@ function play() {
                                 const h3 = document.createElement('h3')
                                 h3.textContent = 'WELL DONE !!!'
                                 const p = document.createElement('p')
-                                p.innerHTML = 'Well done ! You\'ve got ' + score + ' points !'
+                                p.innerHTML = 'Correct answer !<br>You\'ve got ' + score + ' points !'
                                 const next = document.createElement('button')
                                 next.id = 'next'
                                 next.textContent = 'Next question'
