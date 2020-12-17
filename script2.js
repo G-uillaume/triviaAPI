@@ -98,7 +98,7 @@ document.body.appendChild(main)
 setTimeout(() => {
     main.innerHTML = ''
     play()
-}, 1)
+}, 4000)
 
 /* ---- Page choix options --- */
 function play() {
