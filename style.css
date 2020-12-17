@@ -6,8 +6,6 @@ body {
 
 #welcome,
 #category,
-#difficulty,
-#number,
 #quizz,
 #wrong,
 #right,
@@ -72,17 +70,14 @@ body {
     }
 }
 
-#category,
-#difficulty,
-#number {
+#category
+{
     flex-direction: column;
     justify-content: space-around;
     font-size: 54px;
 }
 
-#category select,
-#difficulty select,
-#number select {
+#category select {
     padding: 10px;
     font-family: 'Bangers', cursive;
     font-size: 32px;
@@ -93,8 +88,9 @@ body {
 }
 
 #category button,
-#difficulty button,
-#number button {
+#quizz button,
+#wrong button,
+#right button {
     cursor: pointer;
     outline: none;
     padding: 20px;
@@ -106,7 +102,10 @@ body {
     border: none;
 }
 
-
+#valid:disabled {
+    opacity: 50%;
+    cursor: not-allowed;
+}
 
 #quizz {
     flex-direction: column;
@@ -166,32 +165,6 @@ input[type="radio"]:checked+label {
 }
 
 input[type="radio"]:disabled {
-    opacity: 50%;
-}
-
-#buttons {
-    width: 50%;
-    display: flex;
-    justify-content: space-around;
-}
-
-#buttons button {
-    cursor: pointer;
-    outline: none;
-    padding: 20px;
-    font-family: 'Bangers', cursive;
-    letter-spacing: 0.1em;
-    font-size: 24px;
-    background: linear-gradient(to top, darkblue, grey);
-    color: #eee;
-    border: none;
-}
-
-#buttons button:link {
-    border: none;
-}
-
-#buttons button:disabled {
     opacity: 50%;
 }
 

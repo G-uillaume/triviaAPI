@@ -154,105 +154,124 @@ function play() {
             const quizzH2 = document.createElement('h2')
             const divPropositions = document.createElement('div')
             divPropositions.id = 'propositions'
-            const divBtn = document.createElement('div')
-            divBtn.id = 'buttons'
             const valid = document.createElement('button')
             valid.id = 'valid'
             valid.textContent = 'Validate your answer'
-            const next = document.createElement('button')
-            next.id = 'next'
-            next.textContent = 'Next question'
-            divBtn.appendChild(valid)
-            divBtn.appendChild(next)
             choice.appendChild(quizzH2)
             choice.appendChild(divPropositions)
-            choice.appendChild(divBtn)
+            choice.appendChild(valid)
             questions = []
             generateLabel(divPropositions, questions, type)
             const inputs = document.querySelectorAll('input')
             fetch('https://opentdb.com/api.php?amount=' + number + '&category=' + category + '&difficulty=' + difficulty + '&type=' + type + '&encode=base64')
-                .then(response => response.json())
-                .then(response => {
-                    let i = 0
-                    let score = 0
-                    let choices = []
-                    choices.push(b64DecodeUnicode(response.results[i].correct_answer))
-                    for (let elem of response.results[i].incorrect_answers) {
-                        choices.push(b64DecodeUnicode(elem))
-                    }
-                    choices = shuffleArray(choices)
-                    generateQuestion(response, quizzH2, choices, questions, i)
-                    next.disabled = true
-                    valid.addEventListener('click', () => {
-
-                        // console.log(b64DecodeUnicode(response.results[i].correct_answer))
-                        for (let elem of inputs) {
-                            if (elem.checked) {
-                                if (elem.value == b64DecodeUnicode(response.results[i].correct_answer)) {
-                                    score++
-                                    const right = document.createElement('div')
-                                    right.id = 'right'
-                                    const h3 = document.createElement('h3')
-                                    h3.textContent = 'WELL DONE !!!'
-                                    const p = document.createElement('p')
-                                    p.innerHTML = 'Well done ! You\'ve got ' + score + ' points !'
-                                    right.appendChild(h3)
-                                    right.appendChild(p)
-                                    main.appendChild(right)
-                                    setTimeout(() => {
-                                        main.removeChild(right)
-                                        next.disabled = false
-                                    }, 1000)
-                                } else {
-                                    const wrong = document.createElement('div')
-                                    wrong.id = 'wrong'
-                                    const h3 = document.createElement('h3')
-                                    h3.textContent = 'WRONG !!!'
-                                    const p = document.createElement('p')
-                                    p.innerHTML = 'The correct answer was ' + b64DecodeUnicode(response.results[i].correct_answer) + ' !<br>You\'ve got ' + score + ' points !'
-                                    wrong.appendChild(h3)
-                                    wrong.appendChild(p)
-                                    main.appendChild(wrong)
-                                    setTimeout(() => {
-                                        main.removeChild(wrong)
-                                        next.disabled = false
-                                    }, 2000)
-                                }
+            .then(response => response.json())
+            .then(response => {
+                let i = 0
+                let score = 0
+                let choices = []
+                choices.push(b64DecodeUnicode(response.results[i].correct_answer))
+                for (let elem of response.results[i].incorrect_answers) {
+                    choices.push(b64DecodeUnicode(elem))
+                }
+                choices = shuffleArray(choices)
+                generateQuestion(response, quizzH2, choices, questions, i)
+                valid.addEventListener('click', () => {
+                    valid.disabled = true
+                    for (let elem of inputs) {
+                        if (elem.checked) {
+                            if (elem.value == b64DecodeUnicode(response.results[i].correct_answer)) {
+                                score++
+                                const right = document.createElement('div')
+                                right.id = 'right'
+                                const h3 = document.createElement('h3')
+                                h3.textContent = 'WELL DONE !!!'
+                                const p = document.createElement('p')
+                                p.innerHTML = 'Well done ! You\'ve got ' + score + ' points !'
+                                const next = document.createElement('button')
+                                next.id = 'next'
+                                next.textContent = 'Next question'
+                                right.appendChild(h3)
+                                right.appendChild(p)
+                                right.appendChild(next)
+                                main.appendChild(right)
+                                next.addEventListener('click', () => {
+                                    main.removeChild(right)
+                                    i++
+                                    if (i >= number) {
+                                        choice.innerHTML = ''
+                                        choice.id = 'result'
+                                        const h1 = document.createElement('h1')
+                                        h1.textContent = 'The game is over! You have ' + score + ' out of ' + number + ' points!'
+                                        const btnPlayAgain = document.createElement('button')
+                                        btnPlayAgain.textContent = 'Want to play again ?'
+                                        choice.appendChild(h1)
+                                        choice.appendChild(btnPlayAgain)
+                                        btnPlayAgain.addEventListener('click', play)
+                                    } else {
+                                        for (let elem of inputs) {
+                                            elem.disabled = false
+                                        }
+                                        choices = []
+                                        choices.push(b64DecodeUnicode(response.results[i].correct_answer))
+                                        for (let elem of response.results[i].incorrect_answers) {
+                                            choices.push(b64DecodeUnicode(elem))
+                                        }
+                                        choices = shuffleArray(choices)
+                                        generateQuestion(response, quizzH2, choices, questions, i)
+                                        valid.disabled = false
+                                    }
+                                })
+                            } else {
+                                const wrong = document.createElement('div')
+                                wrong.id = 'wrong'
+                                const h3 = document.createElement('h3')
+                                h3.textContent = 'WRONG !!!'
+                                const p = document.createElement('p')
+                                p.innerHTML = 'The correct answer was ' + b64DecodeUnicode(response.results[i].correct_answer) + ' !<br>You\'ve got ' + score + ' points !'
+                                const next = document.createElement('button')
+                                next.id = 'next'
+                                next.textContent = 'Next question'
+                                wrong.appendChild(h3)
+                                wrong.appendChild(p)
+                                wrong.appendChild(next)
+                                main.appendChild(wrong)
+                                next.addEventListener('click', () => {
+                                    main.removeChild(wrong)
+                                    i++
+                                    if (i >= number) {
+                                        choice.innerHTML = ''
+                                        choice.id = 'result'
+                                        const h1 = document.createElement('h1')
+                                        h1.textContent = 'The game is over! You have ' + score + ' out of ' + number + ' points!'
+                                        const btnPlayAgain = document.createElement('button')
+                                        btnPlayAgain.textContent = 'Want to play again ?'
+                                        choice.appendChild(h1)
+                                        choice.appendChild(btnPlayAgain)
+                                        btnPlayAgain.addEventListener('click', play)
+                                    } else {
+                                        for (let elem of inputs) {
+                                            elem.disabled = false
+                                        }
+                                        choices = []
+                                        choices.push(b64DecodeUnicode(response.results[i].correct_answer))
+                                        for (let elem of response.results[i].incorrect_answers) {
+                                            choices.push(b64DecodeUnicode(elem))
+                                        }
+                                        choices = shuffleArray(choices)
+                                        generateQuestion(response, quizzH2, choices, questions, i)
+                                        valid.disabled = false
+                                    }
+                                })
                             }
-                            elem.disabled = true
                         }
-                        if (i >= number - 1) {
-                            next.textContent = 'FINISH'
-                        }
-                        valid.disabled = true
-                    })
-                    next.addEventListener('click', () => {
-                        if (i >= number - 1) {
-                            choice.innerHTML = ''
-                            choice.id = 'result'
-                            const h1 = document.createElement('h1')
-                            h1.textContent = 'The game is over! You have ' + score + ' out of ' + number + ' points!'
-                            const btnPlayAgain = document.createElement('button')
-                            btnPlayAgain.textContent = 'Want to play again ?'
-                            choice.appendChild(h1)
-                            choice.appendChild(btnPlayAgain)
-                            btnPlayAgain.addEventListener('click', play)
-                        }
-                        for (let elem of inputs) {
-                            elem.disabled = false
-                        }
-                        i++
-                        choices = []
-                        choices.push(b64DecodeUnicode(response.results[i].correct_answer))
-                        for (let elem of response.results[i].incorrect_answers) {
-                            choices.push(b64DecodeUnicode(elem))
-                        }
-                        choices = shuffleArray(choices)
-                        generateQuestion(response, quizzH2, choices, questions, i)
-                        next.disabled = true
-                        valid.disabled = false
-                    })
+                        elem.disabled = true
+                    }
+                    if (i >= number - 1) {
+                        const next = document.querySelector('#next')
+                        next.textContent = 'FINISH'
+                    }
                 })
+            })
         }
     })
 }
