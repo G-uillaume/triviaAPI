@@ -101,6 +101,7 @@ body {
 #category input {
     outline: none;
     box-shadow: 5px 5px 50px rgb(0, 0, 0);
+    text-align: center;
 }
 
 #category button,
@@ -293,8 +294,8 @@ input[type="radio"]:disabled {
 
     #category label {
         font-size: 42px;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: 25px;
+        margin-right: 25px;
     }
 
     #category select {
@@ -308,6 +309,12 @@ input[type="radio"]:disabled {
         color: #eee
     }
 
+    #category input {
+        width: 70%;
+        font-size: 30px;
+        padding: 10px;
+    }
+
     #quizz h2 {
         font-size: 28px;
         margin: 0 10px;
@@ -316,6 +323,8 @@ input[type="radio"]:disabled {
     #propositions label {
         padding: 0 1em;
         font-size: 18px;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 
     #boolean {
@@ -335,12 +344,19 @@ input[type="radio"]:disabled {
     }
 
     #wrong h3, #right h3 {
-        font-size: 54px;
+        font-size: 50px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     #wrong p, #right p {
-        margin: 30px 5px;
+        margin: 5px 5px;
         line-height: 1.5em;
+        font-size: 32px;
+    }
+
+    #wrong button, #right button {
+        margin-top: 10px;
     }
 
     #result h1 {
