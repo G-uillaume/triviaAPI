@@ -160,7 +160,7 @@ setTimeout(() => {
         addPlayer(pseudo)
         play()
     })
-}, 1)
+}, 4000)
 
 
 
