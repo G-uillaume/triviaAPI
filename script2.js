@@ -273,7 +273,7 @@ function play() {
                                         choice.innerHTML = ''
                                         choice.id = 'result'
                                         const h1 = document.createElement('h1')
-                                        h1.textContent = 'The game is over! You have ' + score + ' out of ' + number + ' points!'
+                                        h1.innerHTML = 'The game is over! <span>You have ' + score + ' out of ' + number + ' points!</span>'
                                         const pTotal = document.createElement('p')
                                         pTotal.textContent = 'Your succes rate is ' + pourcentage + '%'
                                         const btnPlayAgain = document.createElement('button')
@@ -312,13 +312,17 @@ function play() {
                                     i++
                                     if (i >= number) {
                                         addGlobalScore(pseudo, number)
+                                        let pourcentage = ((point * 100) / pointOver).toFixed(2)
                                         choice.innerHTML = ''
                                         choice.id = 'result'
                                         const h1 = document.createElement('h1')
                                         h1.innerHTML = 'The game is over! <span>You have ' + score + ' out of ' + number + ' points!</span>'
+                                        const pTotal = document.createElement('p')
+                                        pTotal.textContent = 'Your succes rate is ' + pourcentage + '%'
                                         const btnPlayAgain = document.createElement('button')
                                         btnPlayAgain.textContent = 'Want to play again ?'
                                         choice.appendChild(h1)
+                                        choice.appendChild(pTotal)
                                         choice.appendChild(btnPlayAgain)
                                         btnPlayAgain.addEventListener('click', play)
                                     } else {
