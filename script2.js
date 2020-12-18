@@ -275,7 +275,7 @@ function play() {
                                         const h1 = document.createElement('h1')
                                         h1.innerHTML = 'The game is over! <span>You have ' + score + ' out of ' + number + ' points!</span>'
                                         const pTotal = document.createElement('p')
-                                        pTotal.textContent = 'Your succes rate is ' + pourcentage + '%'
+                                        pTotal.textContent = 'Your global success rate is ' + pourcentage + '%'
                                         const btnPlayAgain = document.createElement('button')
                                         btnPlayAgain.textContent = 'Want to play again ?'
                                         choice.appendChild(h1)
@@ -318,7 +318,7 @@ function play() {
                                         const h1 = document.createElement('h1')
                                         h1.innerHTML = 'The game is over! <span>You have ' + score + ' out of ' + number + ' points!</span>'
                                         const pTotal = document.createElement('p')
-                                        pTotal.textContent = 'Your succes rate is ' + pourcentage + '%'
+                                        pTotal.textContent = 'Your global success rate is ' + pourcentage + '%'
                                         const btnPlayAgain = document.createElement('button')
                                         btnPlayAgain.textContent = 'Want to play again ?'
                                         choice.appendChild(h1)
