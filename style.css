@@ -334,7 +334,7 @@ input[type="radio"]:disabled {
     }
     
     #boolean label {
-        height: 6em;
+        height: 4em;
         width: 6em;
     }
 
