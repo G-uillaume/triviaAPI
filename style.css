@@ -11,6 +11,7 @@ body {
 }
 
 #welcome,
+#pseudo,
 #category,
 #quizz,
 #wrong,
@@ -95,6 +96,11 @@ body {
     outline: none;
     background: linear-gradient(to left, black, darkblue);
     color: #eee
+}
+
+#category input {
+    outline: none;
+    box-shadow: 5px 5px 50px rgb(0, 0, 0);
 }
 
 #category button,
@@ -199,7 +205,7 @@ input[type="radio"]:disabled {
     justify-content: space-around;
     align-items: center;
     position: absolute;
-    margin: 9% 23%;
+    margin: 10% 23% 7% 23%;
     top: 0;
     right: 0;
     left: 0;
@@ -217,6 +223,7 @@ input[type="radio"]:disabled {
 }
 
 #wrong h3, #right h3 {
+    margin-top: 10px;
     text-align: center;
     letter-spacing: 0.1em;
     font-size: 62px;
@@ -239,6 +246,10 @@ input[type="radio"]:disabled {
     font-size: 36px;
 }
 
+#next {
+    margin-bottom: 10px;
+}
+
 #result {
     flex-direction: column;
     justify-content: space-around;
@@ -247,6 +258,11 @@ input[type="radio"]:disabled {
 #result h1 {
     text-align: center;
     font-size: 60px;
+}
+
+#result p {
+    text-align: center;
+    font-size: 32px;
 }
 
 #result button {

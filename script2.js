@@ -39,7 +39,6 @@ const generateLabel = (parentNode, arr, type) => {
             const label = document.createElement('label')
             label.setAttribute('for', 'answer' + i)
             label.id = 'label' + i
-            // label.setAttribute("grid-area", grid[i])
             label.style.gridArea = grid[i-1]
             const radio = document.createElement('input')
             radio.type = 'radio'
@@ -59,10 +58,6 @@ const generateLabel = (parentNode, arr, type) => {
             const label = document.createElement('label')
             label.setAttribute('for', 'answer' + i)
             label.id = 'label' + i
-            // label.setAttribute("grid-area", grid[i])
-            // label.style.fontSize = '4rem'
-            // label.style.padding = '1em'
-            // label.style.textAlign = 'center'
             label.style.gridArea = grid[i-1]
             const radio = document.createElement('input')
             radio.type = 'radio'
@@ -88,6 +83,51 @@ const generateQuestion = (response, question, choices, questions, x) => {
     questions[0].radio.checked = true
 }
 
+// localStorage.clear()
+
+let scores = []
+let point = 0
+let pointOver = 0
+
+if (localStorage.getItem('scores')) {
+    console.log(localStorage)
+    scores = JSON.parse(localStorage.getItem('scores'))
+}
+
+function addPlayer(nom) {
+    const playerFind = scores.findIndex(f => f.nom == nom)
+    if (playerFind === -1) {
+        scores.push({ 
+            nom, 
+            score: 0, 
+            globalScore: 0 
+        })
+    }
+    localStorage.setItem('scores', JSON.stringify(scores))
+}
+
+function addScore(nom) {
+    const scoreFind = scores.findIndex(f => f.nom == nom)
+    
+    score = scores[scoreFind].score
+    scores[scoreFind].score = score + 1
+    point = scores[scoreFind].score
+    
+    localStorage.setItem('scores', JSON.stringify(scores))
+
+}
+
+function addGlobalScore(nom, num) {
+    const globalScoreFind = scores.findIndex(f => f.nom == nom)
+    num = parseInt(num)
+    globalScore = scores[globalScoreFind].globalScore
+    scores[globalScoreFind].globalScore = parseInt(globalScore + num)
+    pointOver = scores[globalScoreFind].globalScore
+
+    localStorage.setItem('scores', JSON.stringify(scores))
+}
+let pseudo
+
 /* ---- Page welcome ---- */
 const main = document.createElement('main')
 const welcomeDiv = document.createElement('div')
@@ -99,8 +139,30 @@ main.appendChild(welcomeDiv)
 document.body.appendChild(main)
 setTimeout(() => {
     main.innerHTML = ''
-    play()
-}, 4000)
+    const pseudoDiv = document.createElement('div')
+    pseudoDiv.id = 'category'
+    const pseudoLabel = document.createElement('label')
+    pseudoLabel.setAttribute('for', 'pseudoInput')
+    pseudoLabel.textContent = 'Enter your name : '
+    const pseudoInput = document.createElement('input')
+    pseudoInput.id = 'pseudoInput'
+    pseudoInput.type = 'text'
+    const btnPseudo = document.createElement('button')
+    btnPseudo.id = 'btnPseudo'
+    btnPseudo.textContent = 'Enter'
+    pseudoDiv.appendChild(pseudoLabel)
+    pseudoDiv.appendChild(pseudoInput)
+    pseudoDiv.appendChild(btnPseudo)
+    main.appendChild(pseudoDiv)
+
+    btnPseudo.addEventListener('click', () => {
+        pseudo = pseudoInput.value.toLowerCase()
+        addPlayer(pseudo)
+        play()
+    })
+}, 1)
+
+
 
 /* ---- Page choix options --- */
 function play() {
@@ -188,6 +250,7 @@ function play() {
                         if (elem.checked) {
                             if (elem.value == b64DecodeUnicode(response.results[i].correct_answer)) {
                                 score++
+                                addScore(pseudo)
                                 const right = document.createElement('div')
                                 right.id = 'right'
                                 const h3 = document.createElement('h3')
@@ -205,19 +268,21 @@ function play() {
                                     main.removeChild(right)
                                     i++
                                     if (i >= number) {
+                                        addGlobalScore(pseudo, number)
+                                        let pourcentage = ((point * 100) / pointOver).toFixed(2)
                                         choice.innerHTML = ''
                                         choice.id = 'result'
                                         const h1 = document.createElement('h1')
                                         h1.textContent = 'The game is over! You have ' + score + ' out of ' + number + ' points!'
+                                        const pTotal = document.createElement('p')
+                                        pTotal.textContent = 'Your succes rate is ' + pourcentage + '%'
                                         const btnPlayAgain = document.createElement('button')
                                         btnPlayAgain.textContent = 'Want to play again ?'
                                         choice.appendChild(h1)
+                                        choice.appendChild(pTotal)
                                         choice.appendChild(btnPlayAgain)
                                         btnPlayAgain.addEventListener('click', play)
                                     } else {
-                                        // for (let elem of inputs) {
-                                        //     elem.disabled = false
-                                        // }
                                         choices = []
                                         choices.push(b64DecodeUnicode(response.results[i].correct_answer))
                                         for (let elem of response.results[i].incorrect_answers) {
@@ -246,19 +311,17 @@ function play() {
                                     main.removeChild(wrong)
                                     i++
                                     if (i >= number) {
+                                        addGlobalScore(pseudo, number)
                                         choice.innerHTML = ''
                                         choice.id = 'result'
                                         const h1 = document.createElement('h1')
-                                        h1.innerHTML = 'The game is over!<span>You have ' + score + ' out of ' + number + ' points!</span>'
+                                        h1.innerHTML = 'The game is over! <span>You have ' + score + ' out of ' + number + ' points!</span>'
                                         const btnPlayAgain = document.createElement('button')
                                         btnPlayAgain.textContent = 'Want to play again ?'
                                         choice.appendChild(h1)
                                         choice.appendChild(btnPlayAgain)
                                         btnPlayAgain.addEventListener('click', play)
                                     } else {
-                                        // for (let elem of inputs) {
-                                        //     elem.disabled = false
-                                        // }
                                         choices = []
                                         choices.push(b64DecodeUnicode(response.results[i].correct_answer))
                                         for (let elem of response.results[i].incorrect_answers) {
@@ -271,7 +334,6 @@ function play() {
                                 })
                             }
                         }
-                        // elem.disabled = true
                     }
                     if (i >= number - 1) {
                         const next = document.querySelector('#next')
